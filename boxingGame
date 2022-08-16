@@ -1,0 +1,101 @@
+public class Main {
+    public static void main(String[] args){
+        Fighter f1 = new Fighter("A",10,120,94,50);
+        Fighter f2 = new Fighter("B",20,85,90,35);
+
+        Match match= new Match(f1,f2,90,95);
+        match.run();
+
+    }
+}
+public class Fighter {
+    String name;
+    int damage;
+    int healt;
+    int weight;
+    int dodge;
+
+    Fighter(String name,int damage, int healt, int weight,int dodge){
+        this.name=name;
+        this.damage=damage;
+        this.healt=healt;
+        this.weight=weight;
+        this.dodge=dodge;
+        if(dodge>=0 && dodge<=100){
+            this.dodge=dodge;
+        }else {
+            this.dodge=0;
+        }
+
+    }
+
+    int hit(Fighter foe){
+        System.out.println(this.name+"=> "+ foe.name+" "+ this.damage+" Hasar verdi");
+        if (foe.isDodge()){
+            System.out.println(foe.name+ " Gelen hasar bloklandı");
+            return foe.healt;
+        }
+        return foe.healt-this.damage;
+    }
+    boolean isDodge(){
+        double randomNumber=Math.random()*100;
+        return randomNumber<=this.dodge;
+    }
+    /*boolean isFirstHit(){
+        double randomStart=Math.random()*1;
+        if (randomStart==1){
+            isFirstHit()
+        }*/
+    }
+    public class Match {
+    Fighter f1;
+    Fighter f2;
+    int minWeight;
+    int maxWeight;
+
+    Match(Fighter f1, Fighter f2, int minWeight, int maxWeight){
+        this.f1=f1;
+        this.f2=f2;
+        this.minWeight=minWeight;
+        this.maxWeight=maxWeight;
+    }
+
+    public void run(){
+        if (isCheck()) {
+            while ((this.f1.healt> 0 && this.f2.healt>0)){
+                System.out.println("====YENI RAUND====");
+                this.f2.healt=this.f1.hit(this.f2);
+                if (isWin()){
+                    break;
+                }
+                this.f1.healt=this.f2.hit((this.f1));
+                if (isWin()){
+                    break;
+                }
+            }
+        }else{
+            System.out.println("Sporcularin sikletleri uymuyor");
+        }
+    }
+    boolean isCheck(){
+        return (this.f1.weight >= minWeight && this.f1.weight<=maxWeight) && (this.f2.weight>= minWeight && this.f2.weight<= maxWeight);
+
+    }
+    boolean isWin(){
+        if (this.f1.healt==0){
+            System.out.println(f2.name+" kazandi !");
+            return true;
+        }
+        if (this.f2.healt<0){
+            System.out.println(f1.name+" kazandi !");
+            return true;
+        }
+        return false;
+    }
+    public void printscore(){
+        System.out.println("------");
+        System.out.println(f1.name+ " Kalan can \t: "+ f1.healt);
+        System.out.println(f2.name+ " Kalan can\t :"+ f2.healt);
+    }
+}
+    
