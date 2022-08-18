@@ -1,0 +1,84 @@
+// MAİN CLASS
+public class Main {
+    public static void main(String[] args){
+        Employee e1 = new Employee("Can demircan",1200,40,2000);
+        Employee  e2= new Employee("Kerem",5000,35,2010);
+        Employee e3= new Employee("Ayse",10000,55,2019);
+        Employee e4 = new Employee("Berk",950,45,2020);
+
+        e1.toString();
+        e2.toString();
+        e3.toString();
+        e4.toString();
+
+
+    }
+}
+
+// EMPLOYEE CLASS
+public class Employee {
+    String name;
+    double salary;
+    int workHours;
+    int hireYear;
+
+    Employee(String name, double salary, int workHours,int hireYear){
+        this.name=name;
+        this.salary=salary;
+        this.workHours=workHours;
+        this.hireYear=hireYear;
+
+
+    }
+
+    public int bonus(){
+        if (this.workHours>=40){
+            return (this.workHours-40)*30;
+        }else
+        return 0;
+    }
+
+    public double raiseSalary(){
+        // this year 2021
+        if (2021-this.hireYear>=19){
+
+            return this.salary*0.15;
+        }else if (2021-this.hireYear<10){
+
+            return this.salary*0.05;
+        }else if (2021-this.hireYear<=10 && 2021-this.hireYear<20){
+
+            return this.salary*0.10;
+
+        }else {
+            return salary*0;
+        }
+
+    }
+    public double tax(){
+        if (this.salary<1000){
+            return 0;
+        }else {
+            return this.salary*0.03;
+        }}
+
+    public String toString(){
+        System.out.println("Ad "+ name);
+        System.out.println("Maas: "+ salary);
+        System.out.println("Calisma Saati: "+ workHours);
+        System.out.println("Baslangic yili: "+ hireYear);
+        System.out.println("Maas Artisi :"+ raiseSalary());
+        System.out.println("Bonus  :"+ bonus());
+        System.out.println("Vergi :"+ tax());
+        double top= 0; top=salary+raiseSalary();
+        double vtop=0; vtop=bonus()-tax();
+        System.out.println("Maas Artisi: "+raiseSalary());
+        System.out.println("Vergi ve bonuslar ile birlikte maas: "+ vtop);
+        double mtop=top+vtop;
+        System.out.println("Toplam Maas: "+mtop);
+        System.out.println("-----------");
+
+        return null;
+    }
+}
+
